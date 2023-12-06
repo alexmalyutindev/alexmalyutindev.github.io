@@ -12,6 +12,8 @@ categories: [WIP, graphics, shader, lighting]
 Phong Lighting Model:
 ---
 
+[WIP]
+
 ```hlsl
 half3 Phong(half3 normalWS, half3 lightDirectionWS, half3 lightColor)
 {
@@ -25,12 +27,14 @@ half3 Phong(half3 normalWS, half3 lightDirectionWS, half3 lightColor)
 Blinn-Phong Lighting Model:
 ---
 
+[WIP]
+
 ```hlsl
 half3 BlinnPhong(half3 normalWS, half3 lightDirectionWS, half3 lightColor)
 {
     // Halfway vector
     half3 h = normalize(normalWS + lightDirectionWS);
-    half NdotH = dot(h, normalWS);
+    half NdotH = dot(normalWS, h);
 
     return max(0, HdotN) * lightColor;
 }
@@ -90,9 +94,9 @@ Shader "AlexMalyutinDev/BlinnPhong"
             {
                 // Halfway vector
                 half3 h = normalize(normalWS + lightDirectionWS);
-                half NdotH = dot(h, normalWS);
+                half NdotH = dot(normalWS, h);
 
-                return max(0, NdotH) * lightColor;
+                return max(0, HdotN) * lightColor;
             }
 
             Varyings Vertex(Attributes input)

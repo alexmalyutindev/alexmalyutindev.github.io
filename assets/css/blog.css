@@ -37,7 +37,7 @@ header .site-title {
 main {
   margin: 0 auto;
   max-width: 800px;
-  padding: 3rem 0;
+  padding: 1rem 0;
 }
 
 /* header */
@@ -45,7 +45,7 @@ main {
 #bio {
   display: flex;
   justify-content: flex-start;
-  align-items: center;
+  align-items: flex-start;
 }
 #img-wrapper img {
   border-radius: 50%;

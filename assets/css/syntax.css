@@ -42,8 +42,8 @@
   /* background-color: #0f140f; */
 } /* Comment.Multiline */
 .highlight .cp {
-  color: #ff0007;
-  font-weight: bold;
+  color: #ffbe32;
+  /* font-weight: bold; */
   font-style: italic;
   /* background-color: #0f140f; */
 } /* Comment.Preproc */
@@ -110,8 +110,8 @@
   font-weight: bold;
 } /* Keyword.Reserved */
 .highlight .kt {
-  color: #cdcaa9;
-  font-weight: bold;
+  color: #509dff;
+  /* font-weight: bold; */
 } /* Keyword.Type */
 .highlight .ld {
   color: #ffffff;
@@ -146,8 +146,8 @@
   color: #ffffff;
 } /* Name.Exception */
 .highlight .nf {
-  color: #ff0086;
-  font-weight: bold;
+  color: #adc5ff;
+  /* font-weight: bold; */
 } /* Name.Function */
 .highlight .nl {
   color: #ffffff;
