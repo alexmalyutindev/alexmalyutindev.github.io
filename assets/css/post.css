@@ -177,6 +177,10 @@ main {
 .content img.emoji {
   margin: 0 !important;
 }
+/* TODO:
+.content iframe {
+  align-self: "center"
+} */
 
 /* pre , code */
 .content,
