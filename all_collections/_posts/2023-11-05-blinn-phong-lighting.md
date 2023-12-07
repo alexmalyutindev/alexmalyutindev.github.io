@@ -5,9 +5,9 @@ date: 2023-11-05 10:18:00
 categories: [WIP, graphics, shader, lighting]
 ---
 
-<p align="center">
-<img src="https://upload.wikimedia.org/wikipedia/commons/0/01/Blinn_Vectors.svg" alt="drawing" style="width:400px;"/>
-</p>
+<div class="invertable" >
+<img src="https://upload.wikimedia.org/wikipedia/commons/0/01/Blinn_Vectors.svg" alt="drawing" align="center" style="width:400px;"/>
+</div>
 
 Phong Lighting Model:
 ---
@@ -27,15 +27,13 @@ where `‖a‖` is a mugnitude of a vector `a`, and `θ` is an angle between vec
 Simply we get, that dot product is equal to **cosine** of `θ`.
 
 This is how cosine graphic looks from `-π` to `π`:
-<p align="center">
-<iframe src="https://www.desmos.com/calculator/k1wljac18w?embed" width="300" height="300" style="border: 0px solid #ccc" frameborder=0></iframe>
-</p>
+<div class="invertable">
+<iframe src="https://www.desmos.com/calculator/k1wljac18w?embed" width="300" height="300" style="border: 5px solid var(--inv-gray-3)" frameborder=0></iframe>
+</div>
 
 And this is how it looks on a sphere:
 
-<p align="center">
-<iframe src="https://www.shadertoy.com/embed/DtGfWR?gui=false&t=10&paused=true&muted=true" width="300" height="300" frameborder="0"></iframe>
-</p>
+<iframe src="https://www.shadertoy.com/embed/DtGfWR?gui=false&t=10&paused=true&muted=true" width="300" height="300" style="border: 5px solid var(--gray-3)" frameborder="0"></iframe>
 
 And here is an implementation in HLSL:
 
