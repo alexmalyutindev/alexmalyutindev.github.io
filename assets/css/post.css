@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100;0,300;0,400;0,800;1,100;1,300;1,400;1,800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,100;0,300;0,400;0,800;1,100;1,300;1,400;1,800&display=swap");
 
 * {
   font-family: inherit;
@@ -197,7 +197,7 @@ main {
 }
 
 .content code {
-  padding: 3px 5px;
+  /* padding: 3px 5px; */
   color: var(--white-2);
   white-space: pre;
   background: var(--gray-3);

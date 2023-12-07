@@ -17,7 +17,10 @@ It uses dot protuct to model light intencity, relative to light direction and su
 
 Geometrycally, dot product looks like this:
 
-`a.b = ‖a‖·‖b‖·cos(θ)`,
+```math
+a.b = ‖a‖·‖b‖·cos(θ)
+```
+
 
 where `‖a‖` is a mugnitude of a vector `a`, and `θ` is an angle between vectors `a` and `b`. In case of graphics, direction vectors are normalized, it means that magnitude is equal to **one**.
 
