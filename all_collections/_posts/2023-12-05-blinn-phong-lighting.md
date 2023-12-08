@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Blinn-Phong Lighting
-date: 2023-11-05 10:18:00
+date: 2023-12-05 10:18:00
 categories: [WIP, graphics, shader, lighting]
 ---
 
