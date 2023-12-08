@@ -53,13 +53,14 @@ Blinn-Phong Lighting Model:
 [WIP]
 
 ```hlsl
-half3 BlinnPhong(half3 normalWS, half3 lightDirectionWS, half3 lightColor)
+half3 BlinnPhong(half3 normalWS, half3 viewDirectionWS, half specularPower, half3 lightDirectionWS, half3 lightColor)
 {
     // Halfway vector
-    half3 h = normalize(normalWS + lightDirectionWS);
-    half NdotH = dot(normalWS, h);
+    half3 h = normalize(lightDirectionWS + viewDirectionWS);
+    half NdotH = saturate(dot(normalWS, h));
+    half intensity = pow(NdotH, specularPower);
 
-    return max(0, HdotN) * lightColor;
+    return lightColor * intensity;
 }
 ```
 
@@ -73,6 +74,7 @@ Shader "AlexMalyutinDev/BlinnPhong"
     Properties
     {
         _Color ("Main Color", Color) = (1.0, 1.0, 1.0, 1.0)
+        _SpecularPower ("Specular Power", Range(0.01, 10.0)) = 1.0
     }
 
     SubShader
@@ -98,8 +100,10 @@ Shader "AlexMalyutinDev/BlinnPhong"
 
             #include "Packages/com.unity.render-pipelines.core/ShaderLibrary/SpaceTransforms.hlsl"
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Input.hlsl"
+            #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/ShaderVariablesFunctions.hlsl"
 
             half4 _Color;
+            half _SpecularPower;
 
             struct Attributes
             {
@@ -110,23 +114,36 @@ Shader "AlexMalyutinDev/BlinnPhong"
             struct Varyings
             {
                 half3 normalWS : TEXCOORD0;
+                half3 viewDirectionWS : TEXCOORD1;
                 float4 positionCS : SV_POSITION;
             }
 
-            half3 BlinnPhong(half3 normalWS, half3 lightDirectionWS, half3 lightColor)
+            half3 BlinnPhong(
+                half3 normalWS,
+                half3 viewDirectionWS,
+                half specularPower,
+                half3 lightDirectionWS,
+                half3 lightColor
+            )
             {
                 // Halfway vector
-                half3 h = normalize(normalWS + lightDirectionWS);
-                half NdotH = dot(normalWS, h);
+                half3 h = normalize(lightDirectionWS + viewDirectionWS);
+                half NdotH = saturate(dot(normalWS, h));
+                half intensity = pow(NdotH, specularPower);
 
-                return max(0, HdotN) * lightColor;
+                return lightColor * intensity;
             }
 
             Varyings Vertex(Attributes input)
             {
                 Varyings output = (Varyings)0;
+
+                float3 positionWS = TransformObjectToWorld(input.positionOS.xyz);
+                // viewDirectionWS is a vector from camera position to object surface
+                output.viewDirectionWS = GetWorldSpaceNormalizeViewDir(positionWS);
+                output.positionCS = TransformWorldToHClip(positionWS);
+
                 output.normalWS = TransformObjectToWorldNormal(input.normalOS.xyz);
-                output.positionCS = TransformObjectToHClip(input.positionOS.xyz);
             }
 
             half4 Fragment(Varyings input) : SV_Target
@@ -135,8 +152,13 @@ Shader "AlexMalyutinDev/BlinnPhong"
                 // mainLightDirection is a negative vector of actual light direction
                 half3 mainLightDirection = -_MainLightPosition.xyz;
 
-                half3 lighting = half3(0.0h, 0.0h, 0.0h);
-                lighting = BlinnPhong(input.normalWS, mainLightDirection, _MainLightColor.rgb);
+                half3 lighting = BlinnPhong(
+                    input.normalWS,
+                    -input.viewDirectionWS,
+                    _SpecularPower,
+                    mainLightDirection,
+                    _MainLightColor.rgb
+                );
 
                 color.rgb *= lighting;
 
