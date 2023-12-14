@@ -176,6 +176,11 @@ main {
   margin-right: auto;
   display: block;
 }
+.content iframe
+{
+  width: 350px;
+  height: 350px;
+}
 .content img.emoji {
   margin: 0 !important;
 }
