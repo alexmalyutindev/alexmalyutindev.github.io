@@ -20,16 +20,17 @@ a.b = ‖a‖·‖b‖·cos(θ)
 ```
 
 where `‖a‖` is a magnitude of a vector `a`, and `θ` is an angle between vectors `a` and `b`. In case of graphics, direction vectors are normalized, it means that magnitude is equal to **one**.
+Simply we get, that dot product of normalized vectors is equals to `cos(θ)`.
 
-Simply we get, that dot product is equal to **cosine** of `θ`.
-
-This is how cosine graphic looks in range `[-π; π]` in radians, than same as from `[-180; 180]` in degrees:
+This is how `cos(θ)` plot looks in range `[-π; π]` in radians or `[-180; 180]` in degrees:
 
 <div class="invertable">
     <iframe src="https://www.desmos.com/calculator/k1wljac18w?embed" style="border: 5px solid var(--inv-gray-3)" frameborder=0></iframe>
 </div>
 
-When angle between light vector and normal vector is equal to `0`, it means that light hits the surface perpendicular, `cos(θ)` comes to it maximum value `1` in this range.
+When light hits the surface perpendicular the angle `θ` between light vector and normal vector comes `0`, and `cos(θ)` comes to it maximum value `1`. When the `θ` is `90`
+
+![](../../assets/images/light-vectors.svg){:width="400"}
 
 And this is how it looks on a sphere:
 
@@ -51,6 +52,8 @@ Blinn-Phong Lighting Model:
 ---
 
 [WIP]
+
+Bling-Phong model is more improved lighting model and it uses view direction vector to create a highlight on a surface to imitate its smoothness.
 
 ```hlsl
 half3 BlinnPhong(half3 normalWS, half3 viewDirectionWS, half specularPower, half3 lightDirectionWS, half3 lightColor)
