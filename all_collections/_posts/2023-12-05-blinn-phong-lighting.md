@@ -28,9 +28,9 @@ This is how `cos(θ)` plot looks in range `[-π; π]` in radians or `[-180; 180]
     <iframe src="https://www.desmos.com/calculator/k1wljac18w?embed" style="border: 5px solid var(--inv-gray-3)" frameborder=0></iframe>
 </div>
 
-When light hits the surface perpendicular the angle `θ` between light vector and normal vector comes `0`, and `cos(θ)` comes to it maximum value `1`. When the `θ` is `90`
+When light hits the surface perpendicular the angle `θ` between light vector and normal vector comes `0`, and `cos(θ)` comes to it maximum value `1`. When the `θ` is `90`.
 
-![](../../assets/images/light-vectors.svg){:width="400"}
+<!-- ![](../../assets/images/light-vectors.svg){:width="400"} -->
 
 And this is how it looks on a sphere:
 
@@ -51,12 +51,12 @@ half3 Phong(half3 normalWS, half3 lightDirectionWS, half3 lightColor)
 Blinn-Phong Lighting Model:
 ---
 
-[WIP]
+Bling-Phong model is more improved lighting model and it additionally involves view direction vector to create a highlight on a surface to imitate its smoothness. Also you can control smoothness by changing `specularPower` parameter.
 
-Bling-Phong model is more improved lighting model and it uses view direction vector to create a highlight on a surface to imitate its smoothness.
+<iframe src="https://www.shadertoy.com/embed/lfsXW8?gui=false&t=10&paused=true&muted=true" style="border: 5px solid var(--gray-3)" frameborder="0"></iframe>
 
 ```hlsl
-half3 BlinnPhong(half3 normalWS, half3 viewDirectionWS, half specularPower, half3 lightDirectionWS, half3 lightColor)
+half3 BlinnPhong(half3 normalWS, half3 viewDirectionWS, half3 lightDirectionWS, half3 lightColor, half specularPower)
 {
     // Halfway vector
     half3 h = normalize(lightDirectionWS + viewDirectionWS);
