@@ -5,35 +5,36 @@ date: 2023-12-05 10:18:00
 categories: [WIP, graphics, shader, lighting]
 ---
 
-<div class="invertable" >
-<img src="https://upload.wikimedia.org/wikipedia/commons/0/01/Blinn_Vectors.svg" alt="drawing" align="center" style="width:400px;"/>
-</div>
+![blinn_vectors](https://upload.wikimedia.org/wikipedia/commons/0/01/Blinn_Vectors.svg){:width="450" .invertable}
 
 Phong Lighting Model:
 ---
-Phong lighting model is a simlies approximation of surface lighting. It is not phisically correct and just mimic like light is works.
+Phong lighting model is a simplest approximation of surface lighting. It is not physically correct and just mimic like light is works.
 
-It uses dot protuct to model light intencity, relative to light direction and surface's normal.
+It uses dot product to model light intensity, relative to light direction and surface's normal.
 
-Geometrycally, dot product looks like this:
+Geometrically, dot product looks like this:
 
 ```math
 a.b = ‖a‖·‖b‖·cos(θ)
 ```
 
+where `‖a‖` is a magnitude of a vector `a`, and `θ` is an angle between vectors `a` and `b`. In case of graphics, direction vectors are normalized, it means that magnitude is equal to **one**.
+Simply we get, that dot product of normalized vectors is equals to `cos(θ)`.
 
-where `‖a‖` is a mugnitude of a vector `a`, and `θ` is an angle between vectors `a` and `b`. In case of graphics, direction vectors are normalized, it means that magnitude is equal to **one**.
+This is how `cos(θ)` plot looks in range `[-π; π]` in radians or `[-180; 180]` in degrees:
 
-Simply we get, that dot product is equal to **cosine** of `θ`.
-
-This is how cosine graphic looks from `-π` to `π`:
 <div class="invertable">
-<iframe src="https://www.desmos.com/calculator/k1wljac18w?embed" width="300" height="300" style="border: 5px solid var(--inv-gray-3)" frameborder=0></iframe>
+    <iframe src="https://www.desmos.com/calculator/k1wljac18w?embed" style="border: 5px solid var(--inv-gray-3)" frameborder=0></iframe>
 </div>
+
+When light hits the surface perpendicular the angle `θ` between light vector and normal vector comes `0`, and `cos(θ)` comes to it maximum value `1`. When the `θ` is `90`.
+
+<!-- ![](../../assets/images/light-vectors.svg){:width="400"} -->
 
 And this is how it looks on a sphere:
 
-<iframe src="https://www.shadertoy.com/embed/DtGfWR?gui=false&t=10&paused=true&muted=true" width="300" height="300" style="border: 5px solid var(--gray-3)" frameborder="0"></iframe>
+<iframe src="https://www.shadertoy.com/embed/DtGfWR?gui=false&t=10&paused=true&muted=true" style="border: 5px solid var(--gray-3)" frameborder="0"></iframe>
 
 And here is an implementation in HLSL:
 
@@ -50,10 +51,12 @@ half3 Phong(half3 normalWS, half3 lightDirectionWS, half3 lightColor)
 Blinn-Phong Lighting Model:
 ---
 
-[WIP]
+Bling-Phong model is more improved lighting model and it additionally involves view direction vector to create a highlight on a surface to imitate its smoothness. Also you can control smoothness by changing `specularPower` parameter.
+
+<iframe src="https://www.shadertoy.com/embed/lfsXW8?gui=false&t=10&paused=true&muted=true" style="border: 5px solid var(--gray-3)" frameborder="0"></iframe>
 
 ```hlsl
-half3 BlinnPhong(half3 normalWS, half3 viewDirectionWS, half specularPower, half3 lightDirectionWS, half3 lightColor)
+half3 BlinnPhong(half3 normalWS, half3 viewDirectionWS, half3 lightDirectionWS, half3 lightColor, half specularPower)
 {
     // Halfway vector
     half3 h = normalize(lightDirectionWS + viewDirectionWS);
